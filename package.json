@@ -34,7 +34,7 @@
     "/src/*.ts",
     "!/rollup.config.js"
   ],
-  "repository": "https://github.com/ornicar/chessgroundxx",
+  "repository": "https://github.com/luanlv/chessgroundxx",
   "keywords": [
     "chess",
     "lichess",
@@ -46,6 +46,6 @@
   "author": "Thibault Duplessis (https://github.com/ornicar)",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/ornicar/chessgroundxx/issues"
+    "url": "https://github.com/luanlv/chessgroundxx/issues"
   }
 }

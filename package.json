@@ -25,7 +25,8 @@
     "prepare": "npm run compile",
     "compile": "tsc --outDir . --sourceMap --declaration",
     "lint": "eslint src/*.ts",
-    "dist": "rollup --config"
+    "dist": "rollup --config",
+    "test": ""
   },
   "files": [
     "/*.js",

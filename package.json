@@ -26,7 +26,7 @@
     "compile": "tsc --outDir . --sourceMap --declaration",
     "lint": "eslint src/*.ts",
     "dist": "rollup --config",
-    "test": ""
+    "test": "jest"
   },
   "files": [
     "/*.js",

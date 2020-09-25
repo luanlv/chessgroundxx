@@ -76,19 +76,27 @@ var Chessground = (function () {
 	    return dx * dx + dy * dy;
 	};
 	exports.samePiece = (p1, p2) => p1.role === p2.role && p1.color === p2.color;
-	const posToTranslateBase = (pos, asWhite, xFactor, yFactor) => [
-	    (asWhite ? pos[0] : 8 - pos[0]) * xFactor,
-	    (asWhite ? 9 - pos[1] : pos[1]) * yFactor
-	];
+	const posToTranslateBase = (pos, asWhite, xFactor, yFactor) => {
+	    return [
+	        (asWhite ? pos[0] - 1 : 9 - pos[0] - 1) * xFactor,
+	        (asWhite ? 10 - pos[1] : pos[1] - 1) * yFactor
+	    ];
+	};
 	exports.posToTranslateAbs = (bounds) => {
 	    const xFactor = bounds.width / 9, yFactor = bounds.height / 10;
 	    return (pos, asWhite) => posToTranslateBase(pos, asWhite, xFactor, yFactor);
 	};
-	exports.posToTranslateRel = (pos, asWhite) => posToTranslateBase(pos, asWhite, 100, 100);
+	exports.posToTranslateRel = (pos, asWhite) => {
+	    console.log("posToTranslateRel");
+	    return posToTranslateBase(pos, asWhite, 100, 100);
+	};
 	exports.translateAbs = (el, pos) => {
+	    console.log("translateAbs ===");
+	    console.log(pos);
 	    el.style.transform = `translate(${pos[0]}px,${pos[1]}px)`;
 	};
 	exports.translateRel = (el, percents) => {
+	    console.log(percents);
 	    el.style.transform = `translate(${percents[0]}%,${percents[1]}%)`;
 	};
 	exports.setVisible = (el, v) => {
@@ -112,8 +120,8 @@ var Chessground = (function () {
 	function computeSquareCenter(key, asWhite, bounds) {
 	    const pos = key2pos(key);
 	    if (!asWhite) {
-	        pos[0] = 8 - pos[0];
-	        pos[1] = 9 - pos[1];
+	        pos[0] = 9 - pos[0];
+	        pos[1] = 10 - pos[1];
 	    }
 	    return [
 	        bounds.left + bounds.width * pos[0] / 9 + bounds.width / 16,
@@ -1453,6 +1461,7 @@ var Chessground = (function () {
 
 
 	function renderWrap(element, s, relative) {
+	    console.log("________ Run wrap !!!");
 	    element.innerHTML = '';
 	    element.classList.add('cg-wrap');
 	    for (const c of types.colors)
@@ -1637,6 +1646,7 @@ var Chessground = (function () {
 	            elPieceName = el.cgPiece;
 	            if (el.cgDragging && (!curDrag || curDrag.orig !== k)) {
 	                el.classList.remove('dragging');
+	                console.log("RUN TRANSLATE 1");
 	                translate(el, posToTranslate(util.key2pos(k), asWhite));
 	                el.cgDragging = false;
 	            }
@@ -1650,11 +1660,13 @@ var Chessground = (function () {
 	                    pos[0] += anim[2];
 	                    pos[1] += anim[3];
 	                    el.classList.add('anim');
+	                    console.log("RUN TRANSLATE 2");
 	                    translate(el, posToTranslate(pos, asWhite));
 	                }
 	                else if (el.cgAnimating) {
 	                    el.cgAnimating = false;
 	                    el.classList.remove('anim');
+	                    console.log("RUN TRANSLATE 3");
 	                    translate(el, posToTranslate(util.key2pos(k), asWhite));
 	                    if (s.addPieceZIndex)
 	                        el.style.zIndex = posZIndex(util.key2pos(k), asWhite);
@@ -1692,11 +1704,13 @@ var Chessground = (function () {
 	            const translation = posToTranslate(util.key2pos(sk), asWhite);
 	            if (sMvd) {
 	                sMvd.cgKey = sk;
+	                console.log("RUN TRANSLATE 4");
 	                translate(sMvd, translation);
 	            }
 	            else {
 	                const squareNode = util.createEl('square', className);
 	                squareNode.cgKey = sk;
+	                console.log("RUN TRANSLATE 5");
 	                translate(squareNode, translation);
 	                boardEl.insertBefore(squareNode, boardEl.firstChild);
 	            }
@@ -1722,6 +1736,7 @@ var Chessground = (function () {
 	                    pos[0] += anim[2];
 	                    pos[1] += anim[3];
 	                }
+	                console.log("RUN TRANSLATE 6");
 	                translate(pMvd, posToTranslate(pos, asWhite));
 	            }
 	            else {
@@ -1733,6 +1748,9 @@ var Chessground = (function () {
 	                    pos[0] += anim[2];
 	                    pos[1] += anim[3];
 	                }
+	                console.log("RUN TRANSLATE 7");
+	                console.log(pieceNode);
+	                console.log(pos);
 	                translate(pieceNode, posToTranslate(pos, asWhite));
 	                if (s.addPieceZIndex)
 	                    pieceNode.style.zIndex = posZIndex(pos, asWhite);
@@ -1747,12 +1765,14 @@ var Chessground = (function () {
 	}
 	exports.render = render;
 	function updateBounds(s) {
+	    console.log("RUN TRANSLATE UPDATE BOUNDS");
 	    if (s.dom.relative)
 	        return;
 	    const asWhite = board.whitePov(s), posToTranslate = util$1.posToTranslateAbs(s.dom.bounds());
 	    let el = s.dom.elements.board.firstChild;
 	    while (el) {
 	        if ((isPieceNode(el) && !el.cgAnimating) || isSquareNode(el)) {
+	            console.log("NOTEEEEE");
 	            util$1.translateAbs(el, posToTranslate(util.key2pos(el.cgKey), asWhite));
 	        }
 	        el = el.nextSibling;
@@ -1847,7 +1867,11 @@ var Chessground = (function () {
 	    config.configure(maybeState, config$1 || {});
 	    function redrawAll() {
 	        const prevUnbind = 'dom' in maybeState ? maybeState.dom.unbind : undefined;
-	        const relative = maybeState.viewOnly && !maybeState.drawable.visible, elements = wrap.renderWrap(element, maybeState, relative), bounds = util.memo(() => elements.board.getBoundingClientRect()), redrawNow = (skipSvg) => {
+	        const relative = maybeState.viewOnly && !maybeState.drawable.visible, elements = wrap.renderWrap(element, maybeState, relative), bounds = util.memo(() => {
+	            console.log(elements);
+	            console.log(elements.board.getBoundingClientRect());
+	            return elements.board.getBoundingClientRect();
+	        }), redrawNow = (skipSvg) => {
 	            render_1.render(state);
 	            if (!skipSvg && elements.svg)
 	                svg.renderSvg(state, elements.svg);

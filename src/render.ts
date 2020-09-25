@@ -50,6 +50,7 @@ export function render(s: State): void {
       // if piece not being dragged anymore, remove dragging style
       if (el.cgDragging && (!curDrag || curDrag.orig !== k)) {
         el.classList.remove('dragging');
+        console.log("RUN TRANSLATE 1")
         translate(el, posToTranslate(key2pos(k), asWhite));
         el.cgDragging = false;
       }
@@ -67,10 +68,12 @@ export function render(s: State): void {
           pos[0] += anim[2];
           pos[1] += anim[3];
           el.classList.add('anim');
+          console.log("RUN TRANSLATE 2")
           translate(el, posToTranslate(pos, asWhite));
         } else if (el.cgAnimating) {
           el.cgAnimating = false;
           el.classList.remove('anim');
+          console.log("RUN TRANSLATE 3")
           translate(el, posToTranslate(key2pos(k), asWhite));
           if (s.addPieceZIndex) el.style.zIndex = posZIndex(key2pos(k), asWhite);
         }
@@ -110,11 +113,13 @@ export function render(s: State): void {
       const translation = posToTranslate(key2pos(sk), asWhite);
       if (sMvd) {
         sMvd.cgKey = sk;
+        console.log("RUN TRANSLATE 4")
         translate(sMvd, translation);
       }
       else {
         const squareNode = createEl('square', className) as cg.SquareNode;
         squareNode.cgKey = sk;
+        console.log("RUN TRANSLATE 5")
         translate(squareNode, translation);
         boardEl.insertBefore(squareNode, boardEl.firstChild);
       }
@@ -144,6 +149,7 @@ export function render(s: State): void {
           pos[0] += anim[2];
           pos[1] += anim[3];
         }
+        console.log("RUN TRANSLATE 6")
         translate(pMvd, posToTranslate(pos, asWhite));
       }
       // no piece in moved obj: insert the new piece
@@ -161,6 +167,9 @@ export function render(s: State): void {
           pos[0] += anim[2];
           pos[1] += anim[3];
         }
+        console.log("RUN TRANSLATE 7")
+        console.log(pieceNode)
+        console.log(pos)
         translate(pieceNode, posToTranslate(pos, asWhite));
 
         if (s.addPieceZIndex) pieceNode.style.zIndex = posZIndex(pos, asWhite);
@@ -176,12 +185,14 @@ export function render(s: State): void {
 }
 
 export function updateBounds(s: State): void {
+  console.log("RUN TRANSLATE UPDATE BOUNDS")
   if (s.dom.relative) return;
   const asWhite: boolean = whitePov(s),
   posToTranslate = util.posToTranslateAbs(s.dom.bounds());
   let el = s.dom.elements.board.firstChild as cg.PieceNode | cg.SquareNode | undefined;
   while (el) {
     if ((isPieceNode(el) && !el.cgAnimating) || isSquareNode(el)) {
+      console.log("NOTEEEEE")
       util.translateAbs(el, posToTranslate(key2pos(el.cgKey), asWhite));
     }
     el = el.nextSibling as cg.PieceNode | cg.SquareNode | undefined;

@@ -20,7 +20,11 @@ export function Chessground(element: HTMLElement, config?: Config): Api {
     // this allows non-square boards from CSS to be handled (for 3D)
     const relative = maybeState.viewOnly && !maybeState.drawable.visible,
     elements = renderWrap(element, maybeState, relative),
-    bounds = util.memo(() => elements.board.getBoundingClientRect()),
+    bounds = util.memo(() => {
+      console.log(elements)
+      console.log(elements.board.getBoundingClientRect())
+      return elements.board.getBoundingClientRect()
+    }),
     redrawNow = (skipSvg?: boolean): void => {
       render(state);
       if (!skipSvg && elements.svg) svg.renderSvg(state, elements.svg);

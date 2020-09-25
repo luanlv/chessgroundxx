@@ -10,7 +10,10 @@ export function pos2key(pos: cg.Pos) {
 }
 
 export function key2pos(k: cg.Key) {
+  // console.log("key 2 pos")
+  // console.log(k)
   const shift = 1 //first rank is 0 
+  // console.log([k.charCodeAt(0) - 96, k.charCodeAt(1) - 48 + shift])
   return [k.charCodeAt(0) - 96, k.charCodeAt(1) - 48 + shift] as cg.Pos;
 }
 
@@ -56,10 +59,16 @@ export const distanceSq = (pos1: cg.Pos, pos2: cg.Pos): number => {
 export const samePiece = (p1: cg.Piece, p2: cg.Piece): boolean =>
   p1.role === p2.role && p1.color === p2.color;
 
-const posToTranslateBase = (pos: cg.Pos, asWhite: boolean, xFactor: number, yFactor: number): cg.NumberPair => [
-  (asWhite ? pos[0] : 8 - pos[0]) * xFactor,
-  (asWhite ? 9 - pos[1] : pos[1]) * yFactor
+const posToTranslateBase = (pos: cg.Pos, asWhite: boolean, xFactor: number, yFactor: number): cg.NumberPair => {
+//   console.log("POS to translate Base:", [
+//     (asWhite ? pos[0] - 1 : 9 - pos[0] - 1) * xFactor,
+//   (asWhite ? 10 - pos[1]: pos[1] - 1) * yFactor
+// ])
+  return [
+    (asWhite ? pos[0] - 1 : 9 - pos[0] - 1) * xFactor,
+  (asWhite ? 10 - pos[1]: pos[1] - 1) * yFactor
 ];
+}
 
 export const posToTranslateAbs = (bounds: ClientRect): (pos: cg.Pos, asWhite: boolean) => cg.NumberPair => {
   const xFactor = bounds.width / 9,
@@ -68,13 +77,19 @@ export const posToTranslateAbs = (bounds: ClientRect): (pos: cg.Pos, asWhite: bo
 }
 
 export const posToTranslateRel = (pos: cg.Pos, asWhite: boolean): cg.NumberPair =>
-  posToTranslateBase(pos, asWhite, 100, 100);
+{
+  console.log("posToTranslateRel")
+  return posToTranslateBase(pos, asWhite, 100, 100);
+}
 
 export const translateAbs = (el: HTMLElement, pos: cg.NumberPair): void => {
+  console.log("translateAbs ===")
+  console.log(pos)
   el.style.transform = `translate(${pos[0]}px,${pos[1]}px)`;
 }
 
 export const translateRel = (el: HTMLElement, percents: cg.NumberPair): void => {
+  console.log(percents)
   el.style.transform = `translate(${percents[0]}%,${percents[1]}%)`;
 }
 
@@ -99,8 +114,8 @@ export const createEl = (tagName: string, className?: string): HTMLElement => {
 export function computeSquareCenter(key: cg.Key, asWhite: boolean, bounds: ClientRect): cg.NumberPair {
   const pos = key2pos(key);
   if (!asWhite) {
-    pos[0] = 8 - pos[0];
-    pos[1] = 9 - pos[1];
+    pos[0] = 9 - pos[0];
+    pos[1] = 10 - pos[1];
   }
   return [
     bounds.left + bounds.width * pos[0] / 9 + bounds.width / 16,

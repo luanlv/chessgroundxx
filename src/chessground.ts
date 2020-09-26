@@ -10,6 +10,8 @@ import * as util from './util';
 
 export function Chessground(element: HTMLElement, config?: Config): Api {
 
+  console.log("CHESS GROUND")
+
   const maybeState: State | HeadlessState = defaults();
 
   configure(maybeState, config || {});

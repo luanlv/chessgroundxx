@@ -65,7 +65,7 @@ const posToTranslateBase = (pos: cg.Pos, asWhite: boolean, xFactor: number, yFac
 //   (asWhite ? 10 - pos[1]: pos[1] - 1) * yFactor
 // ])
   return [
-    (asWhite ? pos[0] - 1 : 9 - pos[0] - 1) * xFactor,
+    (asWhite ? pos[0] - 1 : 9 - pos[0]) * xFactor,
   (asWhite ? 10 - pos[1]: pos[1] - 1) * yFactor
 ];
 }

@@ -78,7 +78,7 @@ var Chessground = (function () {
 	exports.samePiece = (p1, p2) => p1.role === p2.role && p1.color === p2.color;
 	const posToTranslateBase = (pos, asWhite, xFactor, yFactor) => {
 	    return [
-	        (asWhite ? pos[0] - 1 : 9 - pos[0] - 1) * xFactor,
+	        (asWhite ? pos[0] - 1 : 9 - pos[0]) * xFactor,
 	        (asWhite ? 10 - pos[1] : pos[1] - 1) * yFactor
 	    ];
 	};
@@ -1863,6 +1863,7 @@ var Chessground = (function () {
 
 
 	function Chessground(element, config$1) {
+	    console.log("CHESS GROUND");
 	    const maybeState = state.defaults();
 	    config.configure(maybeState, config$1 || {});
 	    function redrawAll() {

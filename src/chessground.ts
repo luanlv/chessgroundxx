@@ -10,7 +10,6 @@ import * as util from './util';
 
 export function Chessground(element: HTMLElement, config?: Config): Api {
 
-  // console.log("CHESS GROUND")
 
   const maybeState: State | HeadlessState = defaults();
 
@@ -23,12 +22,12 @@ export function Chessground(element: HTMLElement, config?: Config): Api {
     const relative = maybeState.viewOnly && !maybeState.drawable.visible,
     elements = renderWrap(element, maybeState, relative),
     bounds = util.memo(() => {
-      // console.log(elements)
-      // console.log(elements.board.getBoundingClientRect())
       return elements.board.getBoundingClientRect()
     }),
     redrawNow = (skipSvg?: boolean): void => {
       render(state);
+      console.log("State: " )
+      console.log(state.drawable.current)
       if (!skipSvg && elements.svg) svg.renderSvg(state, elements.svg);
     },
     boundsUpdated = (): void => {

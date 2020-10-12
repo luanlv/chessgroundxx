@@ -100,6 +100,7 @@ var Chessground = (function () {
 	};
 	exports.eventPosition = (e) => {
 	    var _a;
+	    console.log([e.clientX, e.clientY]);
 	    if (e.clientX || e.clientX === 0)
 	        return [e.clientX, e.clientY];
 	    if ((_a = e.targetTouches) === null || _a === void 0 ? void 0 : _a[0])
@@ -774,6 +775,7 @@ var Chessground = (function () {
 	        brush: eventBrush(e),
 	        snapToValidMove: state.drawable.defaultSnapToValidMove,
 	    };
+	    console.log(state.drawable.current);
 	    processDraw(state);
 	}
 	exports.start = start;
@@ -785,9 +787,7 @@ var Chessground = (function () {
 	            if (!keyAtDomPos) {
 	                cur.snapToValidMove = false;
 	            }
-	            const mouseSq = cur.snapToValidMove ?
-	                board.getSnappedKeyAtDomPos(cur.orig, cur.pos, board.whitePov(state), state.dom.bounds()) :
-	                keyAtDomPos;
+	            const mouseSq = keyAtDomPos;
 	            if (mouseSq !== cur.mouseSq) {
 	                cur.mouseSq = mouseSq;
 	                cur.dest = mouseSq !== cur.orig ? mouseSq : undefined;
@@ -1421,7 +1421,7 @@ var Chessground = (function () {
 	    return el;
 	}
 	function orient(pos, color) {
-	    return color === 'white' ? pos : [7 - pos[0], 7 - pos[1]];
+	    return color === 'white' ? pos : [pos[0] - 1, 10 - pos[1]];
 	}
 	function makeCustomBrush(base, modifiers) {
 	    return {
@@ -1445,7 +1445,7 @@ var Chessground = (function () {
 	    return (shorten ? 20 : 10) / 512 * bounds.width;
 	}
 	function pos2px(pos, bounds) {
-	    return [(pos[0] + 0.5) * bounds.width / 8, (7.5 - pos[1]) * bounds.height / 8];
+	    return [(pos[0] - 0.5) * bounds.width / 9, (10.5 - pos[1]) * bounds.height / 10];
 	}
 
 	});
@@ -1457,7 +1457,6 @@ var Chessground = (function () {
 
 
 	function renderWrap(element, s, relative) {
-	    console.log("________ Run wrap !!!");
 	    element.innerHTML = '';
 	    element.classList.add('cg-wrap');
 	    for (const c of types.colors)
@@ -1593,6 +1592,7 @@ var Chessground = (function () {
 	    return () => el.removeEventListener(eventName, callback, options);
 	}
 	function startDragOrDraw(s) {
+	    console.log("Start or drop: " + s);
 	    return e => {
 	        if (s.draggable.current)
 	            drag.cancel(s);
@@ -1856,6 +1856,8 @@ var Chessground = (function () {
 	            return elements.board.getBoundingClientRect();
 	        }), redrawNow = (skipSvg) => {
 	            render_1.render(state);
+	            console.log("State: ");
+	            console.log(state.drawable.current);
 	            if (!skipSvg && elements.svg)
 	                svg.renderSvg(state, elements.svg);
 	        }, boundsUpdated = () => {

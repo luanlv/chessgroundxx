@@ -7,16 +7,6 @@ import { Elements } from './types'
 export function renderWrap(element: HTMLElement, s: HeadlessState, relative: boolean): Elements {
 
 
-  console.log("________ Run wrap !!!")
-  // .cg-wrap (element passed to Chessground)
-  //   cg-helper (12.5%)
-  //     cg-container (800%)
-  //       cg-board
-  //       svg
-  //       coords.ranks
-  //       coords.files
-  //       piece.ghost
-
   element.innerHTML = '';
 
   // ensure the cg-wrap class is set

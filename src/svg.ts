@@ -1,5 +1,5 @@
 import { State } from './state'
-import { key2pos } from './util'
+import {key2pos} from './util'
 import { Drawable, DrawShape, DrawShapePiece, DrawBrush, DrawBrushes, DrawModifiers } from './draw'
 import * as cg from './types'
 
@@ -20,16 +20,15 @@ type ArrowDests = Map<cg.Key, number>; // how many arrows land on a square
 type Hash = string;
 
 export function renderSvg(state: State, root: SVGElement): void {
-
   const d = state.drawable,
   curD = d.current,
   cur = curD && curD.mouseSq ? curD as DrawShape : undefined,
   arrowDests: ArrowDests = new Map(),
   bounds = state.dom.bounds();
-
   for (const s of d.shapes.concat(d.autoShapes).concat(cur ? [cur] : [])) {
     if (s.dest) arrowDests.set(s.dest, (arrowDests.get(s.dest) || 0) + 1);
   }
+
 
   const shapes: Shape[] = d.shapes.concat(d.autoShapes).map((s: DrawShape) => {
     return {
@@ -122,6 +121,7 @@ function renderShape(state: State, {shape, current, hash}: Shape, brushes: DrawB
     shape.piece,
     bounds);
   else {
+
     const orig = orient(key2pos(shape.orig), state.orientation);
     if (shape.dest) {
       let brush: DrawBrush = brushes[shape.brush];
@@ -164,6 +164,8 @@ function renderArrow(brush: DrawBrush, orig: cg.Pos, dest: cg.Pos, current: bool
   angle = Math.atan2(dy, dx),
   xo = Math.cos(angle) * m,
   yo = Math.sin(angle) * m;
+
+
   return setAttributes(createElement('line'), {
     stroke: brush.color,
     'stroke-width': lineWidth(brush, current, bounds),
@@ -214,7 +216,7 @@ function setAttributes(el: SVGElement, attrs: { [key: string]: any }): SVGElemen
 }
 
 function orient(pos: cg.Pos, color: cg.Color): cg.Pos {
-  return color === 'white' ? pos : [7 - pos[0], 7 - pos[1]];
+  return color === 'white' ? pos : [pos[0] - 1 , 10 - pos[1]];
 }
 
 function makeCustomBrush(base: DrawBrush, modifiers: DrawModifiers): DrawBrush {
@@ -244,5 +246,5 @@ function arrowMargin(bounds: ClientRect, shorten: boolean): number {
 }
 
 function pos2px(pos: cg.Pos, bounds: ClientRect): cg.NumberPair {
-  return [(pos[0] + 0.5) * bounds.width / 8, (7.5 - pos[1]) * bounds.height / 8];
+  return [(pos[0] - 0.5) * bounds.width / 9, (10.5 - pos[1]) * bounds.height / 10];
 }

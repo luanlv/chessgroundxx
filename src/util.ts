@@ -4,21 +4,18 @@ export const invRanks: readonly cg.Rank[] = [...cg.ranks].reverse();
 
 export const allKeys: readonly cg.Key[] = Array.prototype.concat(...cg.files.map(c => cg.ranks.map(r => c + r)));
 
+// console.log(allKeys)
+
 export function pos2key(pos: cg.Pos) {
   const bd = {width: 9, height: 10}
   return allKeys[bd.height * pos[0] + pos[1] - bd.height - 1];
 }
 
 export function key2pos(k: cg.Key) {
-  // console.log("key 2 pos")
-  // console.log(k)
-  const shift = 1 //first rank is 0 
-  // console.log([k.charCodeAt(0) - 96, k.charCodeAt(1) - 48 + shift])
+  const shift = 1 //first rank is 0
   return [k.charCodeAt(0) - 96, k.charCodeAt(1) - 48 + shift] as cg.Pos;
 }
 
-// console.log(key2pos('a9'))
-// console.log(pos2key([1, 10]))
 export const allPos: readonly cg.Pos[] = allKeys.map(key2pos);
 
 export function memo<A>(f: () => A): cg.Memo<A> {
@@ -59,11 +56,7 @@ export const distanceSq = (pos1: cg.Pos, pos2: cg.Pos): number => {
 export const samePiece = (p1: cg.Piece, p2: cg.Piece): boolean =>
   p1.role === p2.role && p1.color === p2.color;
 
-const posToTranslateBase = (pos: cg.Pos, asWhite: boolean, xFactor: number, yFactor: number): cg.NumberPair => {
-//   console.log("POS to translate Base:", [
-//     (asWhite ? pos[0] - 1 : 9 - pos[0] - 1) * xFactor,
-//   (asWhite ? 10 - pos[1]: pos[1] - 1) * yFactor
-// ])
+const posToTranslateBase = (pos: cg.Pos, asWhite: boolean, xFactor: number, yFactor: number): cg.NumberPair => {// ])
   return [
     (asWhite ? pos[0] - 1 : 9 - pos[0]) * xFactor,
   (asWhite ? 10 - pos[1]: pos[1] - 1) * yFactor
@@ -78,18 +71,14 @@ export const posToTranslateAbs = (bounds: ClientRect): (pos: cg.Pos, asWhite: bo
 
 export const posToTranslateRel = (pos: cg.Pos, asWhite: boolean): cg.NumberPair =>
 {
-  // console.log("posToTranslateRel")
   return posToTranslateBase(pos, asWhite, 100, 100);
 }
 
 export const translateAbs = (el: HTMLElement, pos: cg.NumberPair): void => {
-  // console.log("translateAbs ===")
-  // console.log(pos)
   el.style.transform = `translate(${pos[0]}px,${pos[1]}px)`;
 }
 
 export const translateRel = (el: HTMLElement, percents: cg.NumberPair): void => {
-  // console.log(percents)
   el.style.transform = `translate(${percents[0]}%,${percents[1]}%)`;
 }
 
@@ -98,6 +87,7 @@ export const setVisible = (el: HTMLElement, v: boolean): void => {
 }
 
 export const eventPosition = (e: cg.MouchEvent): cg.NumberPair | undefined => {
+  console.log([e.clientX, e.clientY!])
   if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY!];
   if (e.targetTouches?.[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
   return; // touchend has no position!

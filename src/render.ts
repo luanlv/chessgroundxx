@@ -211,8 +211,10 @@ function pieceNameOf(piece: cg.Piece): string {
 
 function computeSquareClasses(s: State): SquareClasses {
   const squares: SquareClasses = new Map();
-  if (s.lastMove && s.highlight.lastMove) for (const k of s.lastMove) {
-    addSquare(squares, k, 'last-move');
+  if (s.lastMove && s.highlight.lastMove) {
+    s.lastMove.forEach((k, index) => {
+      addSquare(squares, k, `last-move move${index}`);
+    })
   }
   if (s.check && s.highlight.check) addSquare(squares, s.check, 'check');
   if (s.selected) {

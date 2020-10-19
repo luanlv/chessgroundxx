@@ -100,7 +100,6 @@ var Chessground = (function () {
 	};
 	exports.eventPosition = (e) => {
 	    var _a;
-	    console.log([e.clientX, e.clientY]);
 	    if (e.clientX || e.clientX === 0)
 	        return [e.clientX, e.clientY];
 	    if ((_a = e.targetTouches) === null || _a === void 0 ? void 0 : _a[0])
@@ -775,7 +774,6 @@ var Chessground = (function () {
 	        brush: eventBrush(e),
 	        snapToValidMove: state.drawable.defaultSnapToValidMove,
 	    };
-	    console.log(state.drawable.current);
 	    processDraw(state);
 	}
 	exports.start = start;
@@ -1592,7 +1590,6 @@ var Chessground = (function () {
 	    return () => el.removeEventListener(eventName, callback, options);
 	}
 	function startDragOrDraw(s) {
-	    console.log("Start or drop: " + s);
 	    return e => {
 	        if (s.draggable.current)
 	            drag.cancel(s);
@@ -1786,10 +1783,11 @@ var Chessground = (function () {
 	function computeSquareClasses(s) {
 	    var _a;
 	    const squares = new Map();
-	    if (s.lastMove && s.highlight.lastMove)
-	        for (const k of s.lastMove) {
-	            addSquare(squares, k, 'last-move');
-	        }
+	    if (s.lastMove && s.highlight.lastMove) {
+	        s.lastMove.forEach((k, index) => {
+	            addSquare(squares, k, `last-move move${index}`);
+	        });
+	    }
 	    if (s.check && s.highlight.check)
 	        addSquare(squares, s.check, 'check');
 	    if (s.selected) {
@@ -1856,8 +1854,6 @@ var Chessground = (function () {
 	            return elements.board.getBoundingClientRect();
 	        }), redrawNow = (skipSvg) => {
 	            render_1.render(state);
-	            console.log("State: ");
-	            console.log(state.drawable.current);
 	            if (!skipSvg && elements.svg)
 	                svg.renderSvg(state, elements.svg);
 	        }, boundsUpdated = () => {

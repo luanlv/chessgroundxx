@@ -70,14 +70,13 @@ export function start(state: State, e: cg.MouchEvent): void {
   orig = getKeyAtDomPos(pos, whitePov(state), state.dom.bounds());
 
   if (!orig) return;
-  // console.log(state.drawable.current)
   state.drawable.current = {
     orig,
     pos,
     brush: eventBrush(e),
     snapToValidMove: state.drawable.defaultSnapToValidMove,
   };
-  console.log(state.drawable.current)
+
   processDraw(state);
 }
 
@@ -94,7 +93,6 @@ export function processDraw(state: State): void {
       //     getSnappedKeyAtDomPos(cur.orig, cur.pos, whitePov(state), state.dom.bounds()) :
       //     keyAtDomPos;
       const mouseSq = keyAtDomPos
-      // console.log("mouseSq: " + mouseSq)
       if (mouseSq !== cur.mouseSq) {
         cur.mouseSq = mouseSq;
         cur.dest = mouseSq !== cur.orig ? mouseSq : undefined;

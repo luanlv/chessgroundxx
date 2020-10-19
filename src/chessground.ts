@@ -26,8 +26,6 @@ export function Chessground(element: HTMLElement, config?: Config): Api {
     }),
     redrawNow = (skipSvg?: boolean): void => {
       render(state);
-      console.log("State: " )
-      console.log(state.drawable.current)
       if (!skipSvg && elements.svg) svg.renderSvg(state, elements.svg);
     },
     boundsUpdated = (): void => {

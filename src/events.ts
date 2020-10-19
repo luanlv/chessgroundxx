@@ -63,7 +63,6 @@ function unbindable(el: EventTarget, eventName: string, callback: EventListener,
 }
 
 function startDragOrDraw(s: State): MouchBind {
-  console.log("Start or drop: " + s)
   return e => {
     if (s.draggable.current) drag.cancel(s);
     else if (s.drawable.current) draw.cancel(s);

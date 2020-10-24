@@ -14,11 +14,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/chessground.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/chessground.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/chessground.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/chessground.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessground.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessground.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/draw.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/draw.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/events.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/render.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/render.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/svg.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/svg.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/util.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,6 +58,21 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -69,7 +84,9 @@
       <workItem from="1600717728409" duration="3142000" />
       <workItem from="1602508140167" duration="11042000" />
       <workItem from="1602597385030" duration="47000" />
-      <workItem from="1603089476245" duration="1066000" />
+      <workItem from="1603089476245" duration="1665000" />
+      <workItem from="1603572934704" duration="2044000" />
+      <workItem from="1603579093212" duration="1323000" />
     </task>
     <servers />
   </component>
@@ -96,9 +113,9 @@
       <screen x="72" y="27" width="3368" height="1413" />
     </state>
     <state x="677" y="491" width="424" height="491" key="FileChooserDialogImpl/72.27.3368.1413@72.27.3368.1413" timestamp="1602516415026" />
-    <state x="909" y="398" width="618" height="783" key="find.popup" timestamp="1603090111228">
+    <state x="909" y="398" width="618" height="783" key="find.popup" timestamp="1603573696638">
       <screen x="72" y="27" width="3368" height="1413" />
     </state>
-    <state x="909" y="398" width="618" height="783" key="find.popup/72.27.3368.1413@72.27.3368.1413" timestamp="1603090111228" />
+    <state x="909" y="398" width="618" height="783" key="find.popup/72.27.3368.1413@72.27.3368.1413" timestamp="1603573696638" />
   </component>
 </project>

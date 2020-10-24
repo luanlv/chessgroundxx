@@ -216,7 +216,7 @@ function setAttributes(el: SVGElement, attrs: { [key: string]: any }): SVGElemen
 }
 
 function orient(pos: cg.Pos, color: cg.Color): cg.Pos {
-  return color === 'white' ? pos : [pos[0] - 1 , 10 - pos[1]];
+  return color === 'white' ? pos : [9 - pos[0] + 1, 10 - pos[1] + 1];
 }
 
 function makeCustomBrush(base: DrawBrush, modifiers: DrawModifiers): DrawBrush {

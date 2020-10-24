@@ -11,7 +11,7 @@ type PieceName = string; // `$color $role`
 type SquareClasses = Map<cg.Key, string>;
 
 // ported from https://github.com/veloce/lichobile/blob/master/src/js/chessground/view.js
-// in case of bugs, blame @veloce
+// in case of bugs, blaume @veloce
 export function render(s: State): void {
   const asWhite: boolean = whitePov(s),
   posToTranslate = s.dom.relative ? util.posToTranslateRel : util.posToTranslateAbs(s.dom.bounds()),

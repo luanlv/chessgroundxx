@@ -116,12 +116,12 @@ var Chessground = (function () {
 	function computeSquareCenter(key, asWhite, bounds) {
 	    const pos = key2pos(key);
 	    if (!asWhite) {
-	        pos[0] = 9 - pos[0];
-	        pos[1] = 10 - pos[1];
+	        pos[0] = 9 - pos[0] + 1;
+	        pos[1] = 10 - pos[1] + 1;
 	    }
 	    return [
-	        bounds.left + bounds.width * pos[0] / 9 + bounds.width / 16,
-	        bounds.top + bounds.height * (9 - pos[1]) / 10 + bounds.height / 16
+	        bounds.left + bounds.width / 9 * (pos[0] - 1) + bounds.width / 18,
+	        bounds.top + bounds.height / 10 * (9 - (pos[1] - 1)) + bounds.height / 20
 	    ];
 	}
 	exports.computeSquareCenter = computeSquareCenter;
@@ -1419,7 +1419,7 @@ var Chessground = (function () {
 	    return el;
 	}
 	function orient(pos, color) {
-	    return color === 'white' ? pos : [pos[0] - 1, 10 - pos[1]];
+	    return color === 'white' ? pos : [9 - pos[0] + 1, 10 - pos[1] + 1];
 	}
 	function makeCustomBrush(base, modifiers) {
 	    return {
@@ -1851,6 +1851,7 @@ var Chessground = (function () {
 	    function redrawAll() {
 	        const prevUnbind = 'dom' in maybeState ? maybeState.dom.unbind : undefined;
 	        const relative = maybeState.viewOnly && !maybeState.drawable.visible, elements = wrap.renderWrap(element, maybeState, relative), bounds = util.memo(() => {
+	            console.log("elements.board.getBoundingClientRect()", elements.board.getBoundingClientRect());
 	            return elements.board.getBoundingClientRect();
 	        }), redrawNow = (skipSvg) => {
 	            render_1.render(state);

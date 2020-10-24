@@ -22,6 +22,7 @@ export function Chessground(element: HTMLElement, config?: Config): Api {
     const relative = maybeState.viewOnly && !maybeState.drawable.visible,
     elements = renderWrap(element, maybeState, relative),
     bounds = util.memo(() => {
+      console.log("elements.board.getBoundingClientRect()", elements.board.getBoundingClientRect())
       return elements.board.getBoundingClientRect()
     }),
     redrawNow = (skipSvg?: boolean): void => {

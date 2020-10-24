@@ -102,11 +102,12 @@ export const createEl = (tagName: string, className?: string): HTMLElement => {
 export function computeSquareCenter(key: cg.Key, asWhite: boolean, bounds: ClientRect): cg.NumberPair {
   const pos = key2pos(key);
   if (!asWhite) {
-    pos[0] = 9 - pos[0];
-    pos[1] = 10 - pos[1];
+    pos[0] = 9 - pos[0] + 1;
+    pos[1] = 10 - pos[1] + 1;
   }
+  // console.log("bounds.left", bounds.left)
   return [
-    bounds.left + bounds.width * pos[0] / 9 + bounds.width / 16,
-    bounds.top + bounds.height * (9 - pos[1]) / 10 + bounds.height / 16
+    bounds.left + bounds.width / 9 * (pos[0] - 1) + bounds.width / 18,
+    bounds.top + bounds.height  / 10 * (9 - (pos[1] - 1)) + bounds.height / 20
   ];
 }
